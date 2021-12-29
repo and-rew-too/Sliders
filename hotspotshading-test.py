@@ -24,14 +24,14 @@ m = 3.7
 #f(V) = -I + (0.04*15.6*15.6) - Io*np.exp((q*Vint+I*Rs)/(k*T)) - ( (Vint+I*Rs)/Rsh )* (1+)
 #f'(V) = (-Io*q)/(k*T) * np.exp((q*Vint+I*Rs)/(k*T)) - (1+(a*(1- V+I*Rs)/Vb)**(-m)
 
-
-I = 9.0
-Vint = 0.5
+I = 5.0
+Vint = 0.7
 error = 10000
-while error >= 0.05:
+while error >= 0.005:
   #Vnew = Vint - f(Vint)/f'(Vint)
-  Vnew = Vint - ( -I + (0.04*15.6*15.6) - Io*np.exp((q*Vint+I*Rs)/(k*T))  ) /  (  (-Io*q)/(k*T) * np.exp((q*Vint+I*Rs)/(k*T))  )                                                                       
-  error = Vnew-Vint
+  Vnew = Vint - ( -I + (0.044*15.6*15.6) - Io*np.exp((q*(Vint+I*Rs)/(k*T)))  ) /  (  (-Io*q)/(k*T) * np.exp((q*(Vint+I*Rs))/(k*T))  )                                                                       
+  print(Vnew)
+  error = abs(Vnew-Vint)
   
   Vint = Vnew #reassign newly calculated value as the new 
   print(Vint)
