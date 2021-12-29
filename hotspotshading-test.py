@@ -27,7 +27,8 @@ m = 3.7
 
 I = 9.0
 Vint = 0.5
-while error >= 0.05
+error = 10000
+while error >= 0.05:
   #Vnew = Vint - f(Vint)/f'(Vint)
   Vnew = Vint - ( -I + (0.04*15.6*15.6) - Io*np.exp((q*Vint+I*Rs)/(k*T))  ) /  (  (-Io*q)/(k*T) * np.exp((q*Vint+I*Rs)/(k*T))  )                                                                       
   error = Vnew-Vint
