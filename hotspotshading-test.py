@@ -24,6 +24,9 @@ m = 3.7
 #f(V) = -I + (0.04*15.6*15.6) - Io*np.exp((q*Vint+I*Rs)/(k*T)) - ( (Vint+I*Rs)/Rsh )* (1+)
 #f'(V) = (-Io*q)/(k*T) * np.exp((q*Vint+I*Rs)/(k*T)) - (1+(a*(1- V+I*Rs)/Vb)**(-m)
 
+# INCLUDE FOR LOOP OF linspace(0,11, 50 steps) 
+# INCLUE A BREAK STATEMENT OFR IF THE VALUES EVER GET TO NEGATIVE (that means way above current 9 or 10, so goes -Inf
+
 I = 5.0
 Vint = 0.7
 error = 10000
