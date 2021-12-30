@@ -1,22 +1,24 @@
 import numpy as np
-import pandas as pd 
+import pandas as pd
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 q = 1.62*10**-19
 k = 1.38*10**-23
 T = 298
 Io = 1*10**-10 #guess change this later
-Rs = 0.08 #guess change this later
-Rsh = 1000 
+Rs = 0.0008 #guess change this later
+Rsh = 1000
 
 a = 0.1 #IDK change this later
 Vb = -15
 m = 3.7
 
 #I = linspace(
-#for i in range(1,len(I.index())): 
+#for i in range(1,len(I.index())):
 #  while ,,
 #    ...
-  
+
 # f(V) = -I + (0.04*15.6*15.6) - Io*np.exp((q*Vint+I*Rs)/(k*T))
 # f'(V) = (-Io*q)/(k*T) * np.exp((q*Vint+I*Rs)/(k*T))
 ###########################################################################################3
@@ -31,37 +33,28 @@ m = 3.7
 # error = 10000
 # while error >= 0.005:
 #   #Vnew = Vint - f(Vint)/f'(Vint)
-#   Vnew = Vint - ( -I + (0.044*15.6*15.6) - Io*np.exp((q*(Vint+I*Rs)/(k*T)))  ) /  (  (-Io*q)/(k*T) * np.exp((q*(Vint+I*Rs))/(k*T))  )                                                                       
+#   Vnew = Vint - ( -I + (0.044*15.6*15.6) - Io*np.exp((q*(Vint+I*Rs)/(k*T)))  ) /  (  (-Io*q)/(k*T) * np.exp((q*(Vint+I*Rs))/(k*T))  )
 #   error = abs(Vnew-Vint)
-  
-#   Vint = Vnew #reassign newly calculated value as the new 
+
+#   Vint = Vnew #reassign newly calculated value as the new
 #   print(Vint)
-Iarray = np.linspace(0,10,num=51)
-Varray = pd.Dataframe(np.zeros([1,51]))
+Iarray = np.linspace(10,0,num=51)
+#Varray = pd.DataFrame(np.zeros([1,51]))
+Varray = np.zeros([51])
 for i in range(0,51):
   Vint = 0.7
   error = 10000
+  I = Iarray[i]
   while error > 0.005:
-    Vnew = Vint - ( -I + (0.044*15.6*15.6) - Io*np.exp((q*(Vint+I*Rs)/(k*T)))  ) /  (  (-Io*q)/(k*T) * np.exp((q*(Vint+I*Rs))/(k*T))  )    
+    Vnew = Vint - ( -I + (0.044*15.6*15.6) - Io*np.exp((q*(Vint+I*Rs)/(k*T)))  ) /  (  (-Io*q)/(k*T) * np.exp((q*(Vint+I*Rs))/(k*T))  )
     error = abs(Vnew-Vint)
-    Vint = Vnew #reassign newly calculated value as the new 
-  Varray.iloc[0,i] = Vint
-print(Varray)
-  
-  
-# fig = go.Figure(data=go.Scatter(x=I, y=Vint))
-
-# fig.update_layout(yaxis_range=[-0.1, 1.5])
-# fig.update_layout(
-#     title="PV Open Circuit Voltage as a function of Temperature",
-#     font=dict(
-#         family="Courier New, monospace",
-#         size=18,
-#         color="RebeccaPurple"
-#     )
-# )
-
- 
-  
+    Vint = Vnew #reassign newly calculated value as the new
+  Varray[i] = Vint
 
 
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=Varray, y=Iarray,
+                    mode='markers',
+                    name='markers'))
+
+fig.show()
