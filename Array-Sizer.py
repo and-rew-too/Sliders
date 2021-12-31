@@ -5,8 +5,8 @@ import math
 
 celltech = "silicon" #either enter silicon, gaas, cdte, cigs
 NOTC = 323 #needed to determine actual temperatures, if not, will make assumption of a mounted panel at 323K
-Pdesired = 104 #W
-Idesired = 3.5 #A
+Pdesired = 80 #W
+Idesired = 4.3 #A
 wsh = 0.5 #assumption is that shingle gap is 5mm
 
 if "silicon" in celltech:
