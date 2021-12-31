@@ -23,7 +23,7 @@ m = 3.7
 
 # INCLUE A BREAK STATEMENT OFR IF THE VALUES EVER GET TO NEGATIVE (that means way above current 9 or 10, so goes -Inf
 
-Iarray = np.linspace(100,1,num=301)
+Iarray = np.linspace(15,1,num=301)
 Varray = np.zeros([301])
 for i in range(0,301):
   Vint = 0.7
@@ -42,7 +42,7 @@ fig = go.Figure()
 fig.add_trace(go.Scatter(x=Varray, y=Iarray,
                     mode='markers',
                     name='markers'))
-fig.update_yaxes(range=[-1, 300], dtick=1)
-fig.update_xaxes(range=[-18, 0.8], dtick=0.2)
+fig.update_yaxes(range=[-1, 20], dtick=1)
+fig.update_xaxes(range=[-3, 0.8], dtick=0.2)
 
 fig.show()
