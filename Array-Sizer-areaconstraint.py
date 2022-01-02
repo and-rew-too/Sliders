@@ -6,7 +6,7 @@ import pandas as pd
 
 import math
 from scipy.optimize import curve_fit
-Length = 100 #cm
+Length = 80 #cm
 Width = 48 #cm
 Area = Length*Width
 
@@ -40,14 +40,17 @@ Isc = np.zeros([DIVB])
 Ns = np.zeros([DIVB])
 V = np.zeros([DIVB])
 wsh = np.linspace(1.5,7.5,DIVB)
+deadspace = np.zeros([DIVB])
 
 for i in range(0,DIVB):
-    Ns[i] = math.ceil(Length/(wsh[i]-0.6)) #assumption of 6mm overlap
+    Ns[i] = math.floor(Length/(wsh[i]-0.6)) #assumption of 6mm overlap
     V[i] = Ns[i]*Vmp[i]
     #print(wsh[i])
     Isc[i] = (0.044*Width*(wsh[i]-0.6)) #ALSO ASSUMING entire module width is full of cells, doesnt factor in gaps placed in between cells in the horizontal direction, when placed in rows
+    deadspace[i] = Length - Ns[i]*(wsh[i]-0.6) 
 print(Isc)
 Power = 0.9*Isc*V
+
 
 
 fig = go.Figure()
@@ -60,6 +63,10 @@ fig.add_trace(go.Scatter(x=wsh, y=Isc,
 fig.add_trace(go.Scatter(x=wsh, y=V,
                     mode='markers',
                     name='markers'))
+fig.add_trace(go.Scatter(x=deadspace, y=V,
+                    mode='markers',
+                    name='markers'))
+
 
 fig.show()
 
