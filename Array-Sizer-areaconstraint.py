@@ -45,7 +45,7 @@ for i in range(0,DIVB):
     Ns[i] = math.ceil(Length/(wsh[i]-0.6)) #assumption of 6mm overlap
     V[i] = Ns[i]*Vmp[i]
     #print(wsh[i])
-    Isc[i] = (0.044*15.6*(wsh[i]-0.6))
+    Isc[i] = (0.044*Width*(wsh[i]-0.6)) #ALSO ASSUMING entire module width is full of cells, doesnt factor in gaps placed in between cells in the horizontal direction, when placed in rows
 print(Isc)
 Power = 0.9*Isc*V
 
@@ -62,3 +62,5 @@ fig.add_trace(go.Scatter(x=wsh, y=V,
                     name='markers'))
 
 fig.show()
+
+exit()
