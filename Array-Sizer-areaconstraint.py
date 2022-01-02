@@ -34,6 +34,13 @@ Vmp = 0.7* (y_new/100 *(1-(1.05*0.038/0.7) ) / 0.95 )
 ####### above is alll old shit from the other array-sizer problem, shows Voc degrades as cell width decreases
 
 
+
+
+#https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/conference-paper/35-eupvsec-2018/Mondon_5BO93.pdf
+#ODD RESULTS: as you chnage the 
+# do not account for the increased shading/cell and assume voc always the same (WILL VOC STILL BE CONSTANT AS wsh increases??) 
+# do not account for changing resistive losses as shingle width changes
+# do not account for ?? 
 ####### now is where the new, newer code starts
 DIVB = 121
 Isc = np.zeros([DIVB])
