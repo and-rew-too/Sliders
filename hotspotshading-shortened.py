@@ -32,6 +32,9 @@ def array_shader(Ns, Deltashade):
     #     else:
     #         pass
 
+# THIS ONE WILL ALSO NEED TO BE PRINTING OUT A CURRENT ARRAY FOR LATER USAGE (Iarray1 , Iarray3 equivalent)
+# Iarray3 = np.linspace(15,0.1,num=301)
+    
 V3 = array_shader(5, 0.9)
 print(V3)
 
