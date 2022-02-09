@@ -27,13 +27,13 @@ for i in range(0,13):
 
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=[7, 11])
-ax1.plot(x, y, ':b', linewidth=2, label='G = G0 + summation (G_i * exp(-t/tau_i)')
+ax1.plot(x.loc[:], y.loc[:], ':b', linewidth=2, label='G = G0 + summation (G_i * exp(-t/tau_i)')
 ax1.set_title('Exponential plot', fontsize=15)
 ax1.set_xlabel('x-axis', fontsize=13)
 ax1.set_ylabel('y-axis', fontsize=13)
 ax1.legend()
 
-ax2.loglog(x, y, '--r', linewidth=2, label='e ^ (2.3 * x + 3.7)')
+ax2.loglog(x.loc[:],y.loc[:], '--r', linewidth=2, label='e ^ (2.3 * x + 3.7)')
 ax2.set_title('loglog exponential plot', fontsize=15)
 ax2.set_xlabel('log(x)', fontsize=13)
 ax2.set_ylabel('log(y)', fontsize=13)
