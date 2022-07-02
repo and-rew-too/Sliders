@@ -3,14 +3,20 @@ import numpy as np
 import math
 
 
-celltech = "silicon"  # either enter silicon, gaas, cdte, cigs
-NOTC = 323  # K needed to determine actual temperatures, if not, will make assumption of a mounted panel at 323K
-Pdesired = 108  # W
-Vdesired = 30  # V
-wsh = 0.5  # assumption is that shingle gap is 5mm
+celltech = "silicon"  # either silicon, gaas, cdte, cigs
+NOCT = 323  # Kelvin, needed to determine temperature derating, 323 is NOCT
+Pdesired = 78  # Watts, total power
+Vdesired = 18  # Volts, voltage
+wsh = 0.4  # assumption is that shingle gap is 4mm
+LengthTotal = 67.7 #677cm is the length for lri
+
+
+
+
+
 
 if "silicon" in celltech:
-    Vmp = 0.650  # resistive losses drive that vmp value
+    Vmp = 0.650
     beta = -.0020
     alpha = .00038
 elif "gaas" in celltech:
@@ -26,31 +32,29 @@ elif "cigs" in celltech:
     beta = -.003
     alpha = .0001
 else:
-    print("error: double check spelling plz")
+    print("double check spelling plz")
     exit()
-# Jsc of advanced heterojunction silicon 0.042 A/cm2
-# Jsc of semi-advanced topcon silicon ~0.038-0.04 A/cm2
+# Jsc of advanced hjt silicon 0.042 A/cm2
+# Jsc of topcon silicon ~0.038-0.04 A/cm2
 # Jsc of gaas 0.022 A/cm2
 # Jsc of cdte 0.026 A/cm2
 # Jsc of cigs 0.026 A/cm2
-Vd = 0.75
-Vw = 0.75  # may be a bit high
-
-#NEW vmp, adjust for illumination
-Vdesired = Vdesired + (1*(1.38*10**-23)*NOTC) / \
+Vd = 0.75 #voltage drop over diode
+Vw = 0.75 #voltage drop due to resistivity of length of wiring / jbox
+Vdesired = Vdesired + (1*(1.38*10**-23)*NOCT) / \
                        (1.602*10**-19) * np.log(800/1000)
-Ns = (Vdesired + Vd + Vw) / ((Vmp)*(1+beta*(NOTC-273)))
+Ns = (Vdesired + Vd + Vw) / ((Vmp)*(1+beta*(NOCT-273)))
+FinalLength = 15.8
+FinalWidth = LengthTotal/Ns + wsh
 
-Il = Pdesired / Vdesired
-#Isc = 0.040*15.8*(2.6-wsh)
-Imp = 0.95*(0.04*15.8*(2.6-wsh))
-#print(Imp)
-Np = Il / ((Imp)*(1+alpha*(NOTC-273))*(800/1000)*(1-0.002*20))
-#f1 is a polynomial relation to wsh so like a*wsh**3 + b*wh**2 + c*wh**1
-#Np = .... / .... * f1
-
+Idesired = Pdesired / Vdesired #find current requirement from Power and Voltage
+Imp = 0.95*(0.04*15.8*(FinalWidth-wsh)) #the 0.95 is generally ratio of Isc:Imp
+Np = Idesired / ((Imp)*(1+alpha*(NOCT-273))*(800/1000)*(1-0.002*20))
 
 print("number series: {}, number parallel: {}".format(Ns, Np))
 print("real number series:{}, real number parallel: {}".format(
     math.ceil(Ns), math.ceil(Np)))
+print("Shingle width:{}, Shingle length *constant: {}".format(
+    FinalWidth, FinalLength))
+
 
